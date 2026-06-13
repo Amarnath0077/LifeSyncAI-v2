@@ -1812,8 +1812,14 @@ async function realEmailDispatch(
       }
     }
     if (!settings) {
-      settings = { emailProvider: "smtp", emailEnabled: true };
-    }
+settings = {
+  emailProvider: "smtp",
+  emailEnabled: true,
+  smtpHost: process.env.SMTP_HOST,
+  smtpPort: process.env.SMTP_PORT,
+  smtpUser: process.env.SMTP_USER,
+  smtpPass: process.env.SMTP_PASSWORD
+};    }
 
     const provider = settings.emailProvider || "smtp";
     let status: "success" | "failed" = "failed";
