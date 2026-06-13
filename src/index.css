@@ -1,0 +1,162 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+/* Custom premium styles */
+body {
+  font-family: var(--font-sans);
+  background-color: #0b0f19;
+  color: #f3f4f6;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0d1222;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1f293d;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3b82f6;
+}
+
+/* Glowing card effect */
+.glow-card {
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: linear-gradient(135deg, rgba(16, 22, 42, 0.7) 0%, rgba(10, 15, 30, 0.8) 100%);
+  backdrop-filter: blur(12px);
+  transition: all 0.3s ease;
+}
+
+.glow-card:hover {
+  border-color: rgba(59, 130, 246, 0.3);
+  box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.15);
+}
+
+.glow-border {
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.gradient-text {
+  background: linear-gradient(to right, #3b82f6, #60a5fa, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Celebration & Confetti Animations */
+@keyframes confetti-burst-1 {
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-100px, -160px) scale(0.6) rotate(180deg);
+    opacity: 0;
+  }
+}
+
+@keyframes confetti-burst-2 {
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-40px, -220px) scale(0.5) rotate(270deg);
+    opacity: 0;
+  }
+}
+
+@keyframes confetti-burst-3 {
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(60px, -180px) scale(0.7) rotate(90deg);
+    opacity: 0;
+  }
+}
+
+@keyframes confetti-burst-4 {
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(120px, -140px) scale(0.6) rotate(320deg);
+    opacity: 0;
+  }
+}
+
+@keyframes confetti-burst-5 {
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-140px, -110px) scale(0.5) rotate(140deg);
+    opacity: 0;
+  }
+}
+
+@keyframes card-sparkle {
+  0%, 100% {
+    transform: scale(0.8) rotate(0deg);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scale(1.2) rotate(180deg);
+    opacity: 1;
+  }
+}
+
+@keyframes border-celebrate-pulse {
+  0%, 100% {
+    border-color: rgba(16, 185, 129, 0.4); /* emerald-500 */
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.15), inset 0 0 10px rgba(16, 185, 129, 0.05);
+  }
+  50% {
+    border-color: rgba(59, 130, 246, 0.8); /* indigo-500 */
+    box-shadow: 0 0 25px rgba(59, 130, 246, 0.35), inset 0 0 15px rgba(59, 130, 246, 0.1);
+  }
+}
+
+.day-complete-pulse {
+  animation: border-celebrate-pulse 2.5s infinite ease-in-out;
+}
+
+.animate-confetti-1 { animation: confetti-burst-1 1.6s cubic-bezier(0.12, 0.85, 0.35, 1) forwards; }
+.animate-confetti-2 { animation: confetti-burst-2 1.8s cubic-bezier(0.12, 0.85, 0.35, 1) forwards; }
+.animate-confetti-3 { animation: confetti-burst-3 1.5s cubic-bezier(0.12, 0.85, 0.35, 1) forwards; }
+.animate-confetti-4 { animation: confetti-burst-4 1.7s cubic-bezier(0.12, 0.85, 0.35, 1) forwards; }
+.animate-confetti-5 { animation: confetti-burst-5 1.9s cubic-bezier(0.12, 0.85, 0.35, 1) forwards; }
+.animate-sparkle-spin { animation: card-sparkle 3.5s infinite linear; }
+

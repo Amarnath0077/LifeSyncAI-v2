@@ -1,0 +1,6 @@
+{
+  "name": "LifeSync AI",
+  "description": "A comprehensive recurring challenges planner and habit tracker featuring a positive and encouraging AI Coach, interactive weekly Recharts metrics, and client-side streak calculations.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

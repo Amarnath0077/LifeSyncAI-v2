@@ -1,0 +1,197 @@
+{
+  "entities": {
+    "Challenge": {
+      "title": "Challenge",
+      "description": "A customized physical or mental routine challenge",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique challenge identifier" },
+        "userId": { "type": "string", "description": "Owner user UID" },
+        "name": { "type": "string", "description": "Name of the challenge" },
+        "startDate": { "type": "string", "format": "date", "description": "Start date in YYYY-MM-DD" },
+        "durationDays": { "type": "number", "description": "Number of days for this challenge" },
+        "dailyTasks": { "type": "array", "description": "Array of daily tasks strings" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp" }
+      },
+      "required": ["id", "userId", "name", "startDate", "durationDays", "dailyTasks", "createdAt"]
+    },
+    "ChallengeDailyLog": {
+      "title": "ChallengeDailyLog",
+      "description": "Daily status log of a specific task within a challenge",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique daily log identifier" },
+        "challengeId": { "type": "string", "description": "Reference to the challenge ID" },
+        "userId": { "type": "string", "description": "Owner user UID" },
+        "date": { "type": "string", "format": "date", "description": "Date of the task entry" },
+        "taskTitle": { "type": "string", "description": "Title of the task logged" },
+        "status": { "type": "string", "enum": ["Completed", "Skipped", "Partial", "Uncompleted"], "description": "Completion state" }
+      },
+      "required": ["id", "challengeId", "userId", "date", "taskTitle", "status"]
+    },
+    "UserNote": {
+      "title": "UserNote",
+      "description": "Personal reflection or general notes written by user",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique note identifier" },
+        "userId": { "type": "string", "description": "Owner user UID" },
+        "challengeId": { "type": "string", "description": "Optional challenge ID reference" },
+        "date": { "type": "string", "format": "date", "description": "Date of reflection" },
+        "content": { "type": "string", "description": "Note content text" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp" }
+      },
+      "required": ["id", "userId", "date", "content", "createdAt"]
+    },
+    "UserGoal": {
+      "title": "UserGoal",
+      "description": "A milestone goal set by user for a challenge",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique goal identifier" },
+        "userId": { "type": "string", "description": "Owner user UID" },
+        "challengeId": { "type": "string", "description": "Optional challenge ID reference" },
+        "title": { "type": "string", "description": "Goal goal title" },
+        "targetDate": { "type": "string", "format": "date", "description": "Target completion date" },
+        "completed": { "type": "boolean", "description": "Completion state" },
+        "completedAt": { "type": "string", "format": "date-time", "description": "Timestamp indicating completion" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp" }
+      },
+      "required": ["id", "userId", "title", "targetDate", "completed", "createdAt"]
+    },
+    "Achievement": {
+      "title": "Achievement",
+      "description": "An unlocked badge or milestone",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique achievement identifier" },
+        "userId": { "type": "string", "description": "Owner user UID" },
+        "title": { "type": "string", "description": "Title of achievement" },
+        "description": { "type": "string", "description": "Description of the milestone" },
+        "unlockedAt": { "type": "string", "format": "date-time", "description": "Unlock timestamp" }
+      },
+      "required": ["id", "userId", "title", "description", "unlockedAt"]
+    },
+    "NotificationSetting": {
+      "title": "NotificationSetting",
+      "description": "Custom communication channels and scheduler settings",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "User UID who owns these configurations" },
+        "morningEnabled": { "type": "boolean" },
+        "eveningEnabled": { "type": "boolean" },
+        "eodEnabled": { "type": "boolean" },
+        "emailEnabled": { "type": "boolean" },
+        "pushEnabled": { "type": "boolean" },
+        "inAppEnabled": { "type": "boolean" },
+        "emailProvider": { "type": "string", "enum": ["sandbox", "resend", "sendgrid", "smtp", "gmail"] },
+        "emailApiKey": { "type": "string" },
+        "smtpHost": { "type": "string" },
+        "smtpPort": { "type": "number" },
+        "smtpUser": { "type": "string" },
+        "smtpPass": { "type": "string" },
+        "smtpFrom": { "type": "string" },
+        "morningTime": { "type": "string", "description": "Morning alert time HH:MM" },
+        "eveningTime": { "type": "string", "description": "Evening alert time HH:MM" },
+        "eodTime": { "type": "string", "description": "EOD alert time HH:MM" },
+        "weeklyReportDay": { "type": "number" },
+        "monthlyReportDay": { "type": "string" }
+      },
+      "required": ["userId", "morningEnabled", "eveningEnabled", "eodEnabled", "emailEnabled", "pushEnabled", "inAppEnabled"]
+    },
+    "InAppNotification": {
+      "title": "InAppNotification",
+      "description": "System-generated notification inside user profile",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique entry identifier" },
+        "userId": { "type": "string", "description": "Target user UID" },
+        "type": { "type": "string", "enum": ["morning", "evening", "eod", "system"] },
+        "title": { "type": "string", "description": "Brief notification title" },
+        "message": { "type": "string", "description": "Detailed body instruction explanation" },
+        "date": { "type": "string", "format": "date", "description": "Reference calendar date" },
+        "read": { "type": "boolean", "description": "Read / Unread flag" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Log creation timestamp" }
+      },
+      "required": ["id", "userId", "type", "title", "message", "date", "read", "createdAt"]
+    },
+    "ProgressReport": {
+      "title": "ProgressReport",
+      "description": "Performance evaluation summary progress report",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique key identifier" },
+        "userId": { "type": "string", "description": "Reference user UID" },
+        "type": { "type": "string", "enum": ["weekly", "monthly"] },
+        "periodStr": { "type": "string", "description": "Display duration string representation" },
+        "dateKey": { "type": "string" },
+        "completionRate": { "type": "number" },
+        "totalHours": { "type": "number" },
+        "bestDay": { "type": "string" },
+        "weakestDay": { "type": "string" },
+        "streak": { "type": "number" },
+        "score": { "type": "number" },
+        "suggestionsOrForecast": { "type": "string", "description": "Coach guidance notes" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "type", "periodStr", "dateKey", "completionRate", "totalHours", "score", "createdAt"]
+    },
+    "EmailDeliveryLog": {
+      "title": "EmailDeliveryLog",
+      "description": "Log of email dispatch attempts",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "to": { "type": "string" },
+        "subject": { "type": "string" },
+        "html": { "type": "string" },
+        "campaign": { "type": "string" },
+        "status": { "type": "string", "enum": ["success", "failed"] },
+        "retryCount": { "type": "number" },
+        "providerUsed": { "type": "string" },
+        "sentAt": { "type": "string", "format": "date-time" },
+        "error": { "type": "string" }
+      },
+      "required": ["id", "userId", "to", "subject", "html", "campaign", "status", "retryCount", "providerUsed", "sentAt"]
+    }
+  },
+  "firestore": {
+    "users/{userId}/challenges": {
+      "schema": "Challenge",
+      "description": "User specific challenges"
+    },
+    "users/{userId}/tasks": {
+      "schema": "ChallengeDailyLog",
+      "description": "Daily logged checklists of user challenges"
+    },
+    "users/{userId}/notes": {
+      "schema": "UserNote",
+      "description": "A collection of notes written for challenges or general reflections"
+    },
+    "users/{userId}/goals": {
+      "schema": "UserGoal",
+      "description": "Specific timeline targets / milestones set by the user"
+    },
+    "users/{userId}/achievements": {
+      "schema": "Achievement",
+      "description": "Badges and achievements unlocked by the user based on stats"
+    },
+    "users/{userId}/notification_preferences": {
+      "schema": "NotificationSetting",
+      "description": "User-specific configuration settings document per UID"
+    },
+    "users/{userId}/notifications": {
+      "schema": "InAppNotification",
+      "description": "Inbox logs of in-app reminder alerts"
+    },
+    "users/{userId}/analytics": {
+      "schema": "ProgressReport",
+      "description": "Weekly and monthly compiled progress scores"
+    },
+    "users/{userId}/emailLogs": {
+      "schema": "EmailDeliveryLog",
+      "description": "Mailing logs for automated notifications"
+    }
+  }
+}

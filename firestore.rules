@@ -1,0 +1,75 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // --- Helpers ---
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isSystemAdmin() {
+      return isSignedIn() && request.auth.token.email == "system-scheduler@lifesync.ai";
+    }
+
+    // --- Flat-Mapped Secure Collection Rules ---
+
+    match /users/{userId} {
+      allow get, write: if isOwner(userId) || isSystemAdmin();
+      allow list: if isSystemAdmin();
+    }
+
+    match /users/{userId}/challenges/{challengeId} {
+      allow read, write: if isOwner(userId) || isSystemAdmin();
+    }
+
+    match /users/{userId}/tasks/{logId} {
+      allow read, write: if isOwner(userId) || isSystemAdmin();
+    }
+
+    match /users/{userId}/notes/{noteId} {
+      allow read, write: if isOwner(userId) || isSystemAdmin();
+    }
+
+    match /users/{userId}/goals/{goalId} {
+      allow read, write: if isOwner(userId) || isSystemAdmin();
+    }
+
+    match /users/{userId}/achievements/{achievementId} {
+      allow read, write: if isOwner(userId) || isSystemAdmin();
+    }
+
+    match /users/{userId}/notification_preferences/{prefId} {
+      allow read, write: if isOwner(userId) || isSystemAdmin();
+    }
+
+    match /users/{userId}/notifications/{notificationId} {
+      allow read, write: if isOwner(userId) || isSystemAdmin();
+    }
+
+    match /users/{userId}/analytics/{reportId} {
+      allow read, write: if isOwner(userId) || isSystemAdmin();
+    }
+
+    match /users/{userId}/emailLogs/{emailLogId} {
+      allow read, write: if isOwner(userId) || isSystemAdmin();
+    }
+
+    match /users/{userId}/email_logs/{emailLogId} {
+      allow read, write: if isOwner(userId) || isSystemAdmin();
+    }
+
+    match /notifications/{notificationId} {
+      allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
+      allow get, update, delete: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow list: if isSystemAdmin();
+    }
+
+    match /scheduledNotifications/{notificationId} {
+      allow read, write: if isSystemAdmin();
+    }
+  }
+}

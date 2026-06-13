@@ -1,0 +1,12 @@
+{
+  "users": [
+    {
+      "id": "demo-user",
+      "name": "Amarnath User",
+      "email": "ankamamarnath23@gmail.com",
+      "password": "password123"
+    }
+  ],
+  "challenges": [],
+  "logs": []
+}
