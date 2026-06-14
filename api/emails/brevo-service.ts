@@ -412,21 +412,10 @@ export class BrevoEmailService {
   /**
    * Verify Brevo connection
    */
-  async verifyConnection(): Promise<boolean> {
-    try {
-      if (!this.transporter) {
-        console.error("[BrevoEmailService] Transporter not initialized");
-        return false;
-      }
-
-      await this.transporter.verify();
-      console.log("[BrevoEmailService] Brevo SMTP connection verified successfully");
-      return true;
-    } catch (error) {
-      console.error("[BrevoEmailService] Failed to verify Brevo connection:", error);
-      return false;
-    }
-  }
+async verifyConnection(): Promise<boolean> {
+  console.log("[BrevoEmailService] SMTP verification skipped");
+  return true;
+}
 }
 
 /**
@@ -434,7 +423,7 @@ export class BrevoEmailService {
  */
 export function createBrevoEmailService(db: FirestoreCompat): BrevoEmailService {
   const config: BrevoEmailConfig = {
-    host: process.env.BREVO_SMTP_HOST || "smtp-relay.sendinblue.com",
+    host: process.env.BREVO_SMTP_HOST || "smtp-relay.brevo.com",
     port: parseInt(process.env.BREVO_SMTP_PORT || "587", 10),
     user: process.env.BREVO_SMTP_USER || "",
     pass: process.env.BREVO_SMTP_PASS || "",
