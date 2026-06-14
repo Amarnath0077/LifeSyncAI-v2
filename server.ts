@@ -1637,8 +1637,6 @@ console.log("FORCED SMTP MODE");
 
     if (provider === "smtp") {
       console.log(`[SMTP] Dispatching email to ${log.to} | Subject: ${log.subject}`);
-      try {
-      if (provider === "smtp") {
   console.log(`[SMTP] Dispatching email to ${log.to}`);
 
   const transporter = nodemailer.createTransport({
@@ -1671,7 +1669,7 @@ console.log("FORCED SMTP MODE");
 
   return { success: true };
 }
-    }
+    
 
     if (provider === "resend") {
       const apiKey = settings.emailApiKey || process.env.RESEND_API_KEY;
