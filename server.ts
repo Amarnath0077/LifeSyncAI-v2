@@ -1668,11 +1668,17 @@ console.log("FORCED SMTP MODE");
       : undefined
   };
 
-  await transporter.sendMail(mailOptions);
+  console.log("Creating SMTP transporter...");
 
-  console.log("BREVO EMAIL SENT SUCCESSFULLY");
+console.log("Sending email now...");
 
-  return { success: true };
+const result = await transporter.sendMail(mailOptions);
+
+console.log("SMTP RESULT:", result);
+
+console.log("BREVO EMAIL SENT SUCCESSFULLY");
+
+return { success: true };
 }
     
 
@@ -1789,8 +1795,15 @@ console.log("FORCED SMTP MODE");
         }] : undefined
       };
 
-      await transporter.sendMail(mailOptions);
-      return { success: true };
+     console.log("Sending email now...");
+
+const result = await transporter.sendMail(mailOptions);
+
+console.log("SMTP RESULT:", result);
+
+console.log("BREVO EMAIL SENT SUCCESSFULLY");
+
+return { success: true };
     }
 
     return { success: false, error: "Unsupported or unhandled email provider configured." };
@@ -1879,9 +1892,14 @@ settings = {
     try {
       const logRef = firestoreDb.collection("users").doc(userId).collection("email_logs").doc(logId);
       await logRef.set(firestoreLogPayload);
-    } catch (dbErr: any) {
-      console.warn("[SERVER] Non-fatal: Unable to write email log into Firestore due to credentials restriction:", dbErr.message || dbErr);
-    }
+    } catch (err: any) {
+  console.error("SMTP SEND ERROR:", err);
+
+  return {
+    success: false,
+    error: err.message || JSON.stringify(err)
+  };
+}
 
     // Also push a local notification to Firestore users/{uid}/notifications indicating status
     const notifId = "notif-" + Date.now() + "-" + Math.random().toString(36).substr(2, 4);
