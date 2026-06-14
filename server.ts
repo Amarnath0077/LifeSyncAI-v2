@@ -1639,15 +1639,15 @@ console.log("FORCED SMTP MODE");
       console.log(`[SMTP] Dispatching email to ${log.to} | Subject: ${log.subject}`);
       try {
         const testAccount = await nodemailer.createTestAccount();
-        const transporter = nodemailer.createTransport({
-          host: "smtp.ethereal.email",
-          port: 587,
-          secure: false,
-          auth: {
-            user: testAccount.user,
-            pass: testAccount.pass
-          }
-        });
+     const transporter = nodemailer.createTransport({
+  host: process.env.BREVO_SMTP_HOST,
+  port: Number(process.env.BREVO_SMTP_PORT || 587),
+  secure: false,
+  auth: {
+    user: process.env.BREVO_SMTP_USER,
+    pass: process.env.BREVO_SMTP_PASS
+  }
+});
         const mailOptions: any = {
           from: '"LifeSync AI" <noreply@lifesync.ai>',
           to: log.to,
@@ -1660,8 +1660,7 @@ console.log("FORCED SMTP MODE");
           }] : undefined
         };
         const info = await transporter.sendMail(mailOptions);
-        const etherealUrl = nodemailer.getTestMessageUrl(info);
-        console.log("Real Ethereal Email Sent. View transmission at: %s", etherealUrl);
+       console.log("Email sent successfully");
         return { success: true };
       } catch (e: any) {
         console.error("Ethereal dynamic SMTP channel failed, fallback to green simulation:", e);
