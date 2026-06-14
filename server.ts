@@ -1629,6 +1629,11 @@ async function executeEmailTransmission(log: any, settings: any, pdfAttachmentBu
   settings.smtpUser = process.env.BREVO_SMTP_USER;
   settings.smtpPass = process.env.BREVO_SMTP_PASS;
   settings.smtpFrom = process.env.BREVO_FROM_EMAIL;
+    console.log("BREVO_SMTP_HOST:", process.env.BREVO_SMTP_HOST);
+console.log("BREVO_SMTP_PORT:", process.env.BREVO_SMTP_PORT);
+console.log("BREVO_SMTP_USER:", process.env.BREVO_SMTP_USER ? "FOUND" : "MISSING");
+console.log("BREVO_SMTP_PASS:", process.env.BREVO_SMTP_PASS ? "FOUND" : "MISSING");
+console.log("BREVO_FROM_EMAIL:", process.env.BREVO_FROM_EMAIL);
 
 console.log("FORCED SMTP MODE");
     console.log("EMAIL PROVIDER:", provider);
