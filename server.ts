@@ -1638,34 +1638,39 @@ console.log("FORCED SMTP MODE");
     if (provider === "smtp") {
       console.log(`[SMTP] Dispatching email to ${log.to} | Subject: ${log.subject}`);
       try {
-        const testAccount = await nodemailer.createTestAccount();
-     const transporter = nodemailer.createTransport({
-  host: process.env.BREVO_SMTP_HOST,
-  port: Number(process.env.BREVO_SMTP_PORT || 587),
-  secure: false,
-  auth: {
-    user: process.env.BREVO_SMTP_USER,
-    pass: process.env.BREVO_SMTP_PASS
-  }
-});
-        const mailOptions: any = {
-          from: '"LifeSync AI" <noreply@lifesync.ai>',
-          to: log.to,
-          subject: log.subject,
-          html: log.html,
-          attachments: pdfAttachmentBuffer ? [{
-            filename: `${log.campaign}_report.pdf`,
-            content: pdfAttachmentBuffer,
-            contentType: "application/pdf"
-          }] : undefined
-        };
-        const info = await transporter.sendMail(mailOptions);
-       console.log("Email sent successfully");
-        return { success: true };
-      } catch (e: any) {
-        console.error("Ethereal dynamic SMTP channel failed, fallback to green simulation:", e);
-        return { success: true };
-      }
+      if (provider === "smtp") {
+  console.log(`[SMTP] Dispatching email to ${log.to}`);
+
+  const transporter = nodemailer.createTransport({
+    host: settings.smtpHost,
+    port: Number(settings.smtpPort || 587),
+    secure: false,
+    auth: {
+      user: settings.smtpUser,
+      pass: settings.smtpPass
+    }
+  });
+
+  const mailOptions: any = {
+    from: settings.smtpFrom,
+    to: log.to,
+    subject: log.subject,
+    html: log.html,
+    attachments: pdfAttachmentBuffer
+      ? [{
+          filename: `${log.campaign}_report.pdf`,
+          content: pdfAttachmentBuffer,
+          contentType: "application/pdf"
+        }]
+      : undefined
+  };
+
+  await transporter.sendMail(mailOptions);
+
+  console.log("BREVO EMAIL SENT SUCCESSFULLY");
+
+  return { success: true };
+}
     }
 
     if (provider === "resend") {
