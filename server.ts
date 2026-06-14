@@ -1635,7 +1635,7 @@ console.log("FORCED SMTP MODE");
     console.log("EMAIL TO:", log.to);
     console.log("EMAIL SUBJECT:", log.subject);
 
-    if (provider === "sandbox") {
+    if (provider === "smtp") {
       console.log(`[SMTP] Dispatching email to ${log.to} | Subject: ${log.subject}`);
       try {
         const testAccount = await nodemailer.createTestAccount();
