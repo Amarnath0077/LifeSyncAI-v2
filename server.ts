@@ -1836,6 +1836,9 @@ return { success: true };
 
 // Reusable dispatch helper with live Firestore logging
 async function realEmailDispatch(
+  console.log("===== REAL EMAIL DISPATCH =====");
+console.log("TO:", userEmail);
+console.log("SUBJECT:", subject);
   userId: string,
   userEmail: string,
   subject: string,
@@ -1882,8 +1885,15 @@ settings = {
         console.error("Failed to generate PDF during dispatch:", e);
       }
     }
-
+      console.log("================================");
+      console.log("REAL EMAIL DISPATCH");
+      console.log("TO:", userEmail);
+      console.log("SUBJECT:", subject);
+      console.log("CAMPAIGN:", emailType);
+      console.log("SETTINGS:", settings);
+      console.log("================================");
     const result = await executeEmailTransmission(tempLog, settings, pdfBuffer);
+    console.log("EMAIL RESULT:", result);
     if (result.success) {
       status = "success";
     } else {
@@ -1987,6 +1997,10 @@ async function queueAndSendCampaignEmail(userId: string, campaign: "morning" | "
 
 // Reusable functions for automated or specific email schedules
 async function sendMorningEmail(userId: string, userEmail: string, userName: string, clientSettings?: any, compiledData?: any) {
+  console.log("===== SEND MORNING EMAIL =====");
+console.log(userId);
+console.log(userEmail);
+console.log(userName);
   const todayStr = new Date().toISOString().split("T")[0];
   const data = compiledData || await compileUserDataFromFirestore(userId, todayStr).catch(() => compileUserDataForEmail(userId, todayStr));
   const { subject, html } = buildCampaignEmailContent("morning", userName, data);
