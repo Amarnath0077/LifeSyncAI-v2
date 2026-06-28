@@ -1725,7 +1725,7 @@ try {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          from: settings.smtpFrom || "LifeSync <onboarding@resend.dev>",
+          from: "LifeSync <onboarding@resend.dev>",
           to: [log.to],
           subject: log.subject,
           html: log.html,
