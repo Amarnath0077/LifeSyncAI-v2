@@ -2210,7 +2210,7 @@ app.post("/api/emails/retry/:logId", async (req, res) => {
     const settingsDoc = await firestoreDb.collection("users").doc(userId).collection("notification_preferences").doc("settings").get();
     let settings = settingsDoc.exists ? settingsDoc.data() : null;
     if (!settings) {
-      settings = { emailProvider: "smtp", emailEnabled: true };
+      settings = { emailProvider: "resend", emailEnabled: true };
     }
 
     let pdfBuffer: Buffer | undefined;
