@@ -1836,9 +1836,6 @@ return { success: true };
 
 // Reusable dispatch helper with live Firestore logging
 async function realEmailDispatch(
-  console.log("===== REAL EMAIL DISPATCH =====");
-console.log("TO:", userEmail);
-console.log("SUBJECT:", subject);
   userId: string,
   userEmail: string,
   subject: string,
@@ -1846,6 +1843,14 @@ console.log("SUBJECT:", subject);
   emailType: "morning" | "evening" | "eod" | "weekly" | "monthly" | "system",
   clientSettings?: any
 ): Promise<{ success: boolean; error?: string; logPayload?: any; notifPayload?: any }> {
+
+  console.log("================================");
+  console.log("REAL EMAIL DISPATCH");
+  console.log("TO:", userEmail);
+  console.log("SUBJECT:", subject);
+  console.log("CAMPAIGN:", emailType);
+  console.log("================================");
+
   try {
     let settings = clientSettings;
     if (!settings) {
@@ -1896,7 +1901,7 @@ settings = {
     console.log("EMAIL RESULT:", result);
     if (result.success) {
       status = "success";
-    } else {
+    } else {  
       errorMsg = result.error || "Unknown transmission error";
     }
 
