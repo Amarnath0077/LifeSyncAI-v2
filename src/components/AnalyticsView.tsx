@@ -59,7 +59,7 @@ export default function AnalyticsView({
   const [emailLogs, setEmailLogs] = useState<EmailDeliveryLog[]>([]);
   const [logsLoading, setLogsLoading] = useState<boolean>(false);
   
-  const [provider, setProvider] = useState<"sandbox" | "resend" | "sendgrid" | "smtp" | "gmail">("smtp");
+  const [provider, setProvider] = useState<"sandbox" | "resend" | "sendgrid" | "smtp" | "gmail">("resend");
   const [apiKey, setApiKey] = useState<string>("");
   const [host, setHost] = useState<string>("");
   const [port, setPort] = useState<number>(587);
