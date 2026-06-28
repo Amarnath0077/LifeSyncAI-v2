@@ -679,7 +679,7 @@ app.get("/api/notifications/settings", (req, res) => {
       emailEnabled: true,
       pushEnabled: false,
       inAppEnabled: true,
-      emailProvider: "smtp",
+      emailProvider: "resend",
       emailApiKey: "",
       smtpHost: "",
       smtpPort: 587,
