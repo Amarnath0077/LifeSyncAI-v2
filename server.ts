@@ -1670,15 +1670,26 @@ console.log("FORCED SMTP MODE");
 
   console.log("Creating SMTP transporter...");
 
-console.log("Sending email now...");
+try {
+    console.log("Sending email now...");
 
-const result = await transporter.sendMail(mailOptions);
+    const result = await transporter.sendMail(mailOptions);
 
-console.log("SMTP RESULT:", result);
+    console.log("SMTP RESULT:", result);
+    console.log("BREVO EMAIL SENT SUCCESSFULLY");
 
-console.log("BREVO EMAIL SENT SUCCESSFULLY");
+    return { success: true };
 
-return { success: true };
+} catch (err: any) {
+
+    console.error("SMTP SEND FAILED");
+    console.error(err);
+
+    return {
+        success: false,
+        error: err.stack || err.message
+    };
+}
 }
     
 
