@@ -324,20 +324,7 @@ console.log("STATUS:", res.status);
 const response = await res.json();
 
 console.log("SERVER RESPONSE:", response);
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-user-id": currentUser.id,
-        },
-        body: JSON.stringify({
-          userId: currentUser.id,
-          campaign,
-          userName: currentUser.name,
-          userEmail: currentUser.email,
-          clientSettings: notifSettings,
-          compiledData: data,
-        }),
-      });
+       
     } catch (e) {
       console.error(`Error triggering campaign email: ${campaign}`, e);
     }
