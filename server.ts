@@ -1855,7 +1855,7 @@ async function realEmailDispatch(
     }
     if (!settings) {
 settings = {
-  emailProvider: "smtp",
+  emailProvider: "resend",
   emailEnabled: true,
   smtpHost: process.env.SMTP_HOST,
   smtpPort: process.env.SMTP_PORT,
