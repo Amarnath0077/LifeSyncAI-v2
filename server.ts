@@ -1644,15 +1644,25 @@ console.log("FORCED SMTP MODE");
       console.log(`[SMTP] Dispatching email to ${log.to} | Subject: ${log.subject}`);
   console.log(`[SMTP] Dispatching email to ${log.to}`);
 
-  const transporter = nodemailer.createTransport({
-    host: settings.smtpHost,
-    port: Number(settings.smtpPort || 587),
-    secure: false,
-    auth: {
-      user: settings.smtpUser,
-      pass: settings.smtpPass
-    }
-  });
+ console.log("Creating SMTP transporter...");
+
+const transporter = nodemailer.createTransport({
+  host: settings.smtpHost,
+  port: Number(settings.smtpPort),
+  secure: false,
+  requireTLS: true,
+  connectionTimeout: 30000,
+  greetingTimeout: 30000,
+  socketTimeout: 30000,
+  auth: {
+    user: settings.smtpUser,
+    pass: settings.smtpPass,
+  },
+});
+
+console.log("Sending email now...");
+const result = await transporter.sendMail(mailOptions);
+console.log("SMTP RESULT:", result);
 
   const mailOptions: any = {
     from: settings.smtpFrom,
