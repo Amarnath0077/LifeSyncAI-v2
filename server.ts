@@ -1622,7 +1622,7 @@ async function executeEmailTransmission(log: any, settings: any, pdfAttachmentBu
   try {
     console.log("SETTINGS:", settings);
     console.log("EMAIL PROVIDER:", settings.emailProvider);
-    const provider = "smtp";
+    const provider = "resend";
 
   settings.smtpHost = process.env.BREVO_SMTP_HOST;
   settings.smtpPort = Number(process.env.BREVO_SMTP_PORT || 587);
