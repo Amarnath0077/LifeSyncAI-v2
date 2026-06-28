@@ -241,7 +241,7 @@ export default function App() {
           emailEnabled: false,
           pushEnabled: false,
           inAppEnabled: true,
-          emailProvider: "smtp",
+          emailProvider: "resend",
           morningTime: "08:00",
           eveningTime: "18:05",
           eodTime: "22:00",
