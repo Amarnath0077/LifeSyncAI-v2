@@ -1660,9 +1660,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-console.log("Sending email now...");
-const result = await transporter.sendMail(mailOptions);
-console.log("SMTP RESULT:", result);
+
 
   const mailOptions: any = {
     from: settings.smtpFrom,
@@ -1677,6 +1675,9 @@ console.log("SMTP RESULT:", result);
         }]
       : undefined
   };
+      console.log("Sending email now...");
+     const result = await transporter.sendMail(mailOptions);
+     console.log("SMTP RESULT:", result);
 
   console.log("Creating SMTP transporter...");
 
