@@ -303,7 +303,27 @@ export default function App() {
   const triggerCampaignEmail = async (campaign: string, data: any) => {
     if (!currentUser) return;
     try {
-      await fetch("/api/emails/trigger-campaign", {
+      const res = await fetch("/api/emails/trigger-campaign", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "x-user-id": currentUser.id,
+  },
+  body: JSON.stringify({
+    userId: currentUser.id,
+    campaign,
+    userName: currentUser.name,
+    userEmail: currentUser.email,
+    clientSettings: notifSettings,
+    compiledData: data,
+  }),
+});
+
+console.log("STATUS:", res.status);
+
+const response = await res.json();
+
+console.log("SERVER RESPONSE:", response);
         method: "POST",
         headers: {
           "Content-Type": "application/json",
